@@ -280,4 +280,17 @@ VALUES (1, '2022-01-05', 100.50),
     (3, '2022-02-01', 250.50),
     (1, '2022-02-05', 180.25);
 
-SELECT customer_id FROM orders GROUP BY customer_id;
+SELECT customer_id, count(order_id), sum(total_amount) as total_spent
+FROM orders
+GROUP BY
+    customer_id
+HAVING
+    count(order_id) > 2;
+
+SELECT extract(
+        MONTH
+        from order_date
+    ) as month, sum(total_amount)
+from orders
+GROUP BY
+    month;
